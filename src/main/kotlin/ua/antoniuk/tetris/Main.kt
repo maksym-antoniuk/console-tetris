@@ -1,30 +1,40 @@
 package ua.antoniuk.tetris
 
-import com.github.ajalt.mordant.TermColors
+import ua.antoniuk.tetris.glass.Glass
+import ua.antoniuk.tetris.ui.console.ConsoleRender
+import java.awt.Window
+import java.lang.Thread.sleep
+import java.util.*
+import javax.swing.SwingUtilities
 
-const val ESC = "\u001B"
-const val NORMAL = ESC + "[0"
-const val BOLD   = ESC + "[1"
-const val BLINK  = ESC + "[5"      // not working on my machine
-const val BLACK  = ESC + "[0;40m"  // black background
-const val WHITE  = ESC + "[0;37m"  // normal white foreground
+fun ClosedRange<Int>.random() = Random().nextInt((endInclusive + 1) - start) +  start
 
 fun main(args: Array<String>) {
-    print("${ESC}c") // clear terminal first
-    print(BLACK)     // set background color to black
-    val foreColors = listOf(
-            ";31m" to "red",
-            ";32m" to "green",
-            ";33m" to "yellow",
-            ";34m" to "blue",
-            ";35m" to "magenta",
-            ";36m" to "cyan",
-            ";37m" to "white"
-    )
-    for (attr in listOf(NORMAL, BOLD, BLINK)) {
-        for (color in foreColors) println("$attr${color.first}${color.second}")
-    }
-    println(WHITE)  // set foreground color to normal white
-    val t = TermColors()
-    print(t.red("kek"))
+
+    val k = Glass()
+
+    k.table[0][0] = 1
+    k.table[1][0] = 2
+    k.table[2][0] = 3
+    k.table[3][0] = 4
+    k.table[4][0] = 5
+    k.table[5][0] = 6
+    k.table[6][0] = 7
+
+    val renderer = ConsoleRender()
+
+    /*Thread {
+        for (i in 0..10) {
+            readLine()
+            k.table[i][3] = (1..7).random()
+            sleep(300)
+            renderer.render(k)
+        }
+    }.start()*/
+
+    //var topFrame = SwingUtilities.getWindowAncestor();
+    val windows = Window.getWindows()
+    for (window in windows)
+        println(window.name + ": " + window.javaClass)
+    System.console()
 }

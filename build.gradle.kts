@@ -38,6 +38,7 @@ application {
 
 dependencies {
     implementation("com.github.ajalt:mordant:1.1.0")
+    implementation("com.importre:crayon:0.1.0")
     compile(kotlin(module = "stdlib-jre8", version = kotlinVer))
     testCompile("io.kotlintest:kotlintest:$kotlinTestVer")
 }
