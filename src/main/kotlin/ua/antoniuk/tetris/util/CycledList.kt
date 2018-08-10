@@ -1,9 +1,13 @@
 package ua.antoniuk.tetris.util
 
-class CycledList<E> {
+class CycledList<E>() {
 
     private val cycledList = mutableListOf<E>()
     private var index = 0
+
+    constructor(elements: Collection<E>): this() {
+        cycledList.addAll(elements)
+    }
 
     fun addAll(elements: Collection<E>) {
         cycledList.addAll(elements)

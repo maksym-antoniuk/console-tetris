@@ -23,14 +23,14 @@ fun main(args: Array<String>) {
 
     val renderer = ConsoleRender()
 
-    /*Thread {
+    Thread {
         for (i in 0..10) {
             readLine()
             k.table[i][3] = (1..7).random()
             sleep(300)
             renderer.render(k)
         }
-    }.start()*/
+    }.start()
 
     //var topFrame = SwingUtilities.getWindowAncestor();
     val windows = Window.getWindows()

@@ -10,46 +10,21 @@ data class Block(var position: Position, val color: Color)
 abstract class Figure {
 
     val blocks = mutableListOf<Block>()
-    protected val spinners = CycledList<(Figure) -> Unit>()
+    protected val transformers = mapOf<Transformers, CycledList<(Figure) -> Unit>>(
+            Transformers.MOVE_LEFT to CycledList(listOf({ figure -> figure.blocks.forEach { it.position = Position(it.position.x - 1, it.position.y) } })),
+            Transformers.MOVE_RIGHT to CycledList(listOf({ figure -> figure.blocks.forEach { it.position = Position(it.position.x + 1, it.position.y) } })),
+            Transformers.MOVE_DOWN to CycledList(listOf({ figure -> figure.blocks.forEach { it.position = Position(it.position.x, it.position.y + 1) } })),
+            Transformers.ROTATE to CycledList()
+    )
 
-    fun snapshotIfMoveRight(): Figure {
+    fun snapshotIfTransform(transformer: Transformers): Figure {
         val snapshot = duplicate()
-        snapshot.moveRight()
+        transformers[transformer]?.next()?.invoke(snapshot)
         return snapshot
     }
 
-    fun moveRight() {
-        blocks.forEach { it.position = Position(it.position.x + 1, it.position.y) }
-    }
-
-    fun snapshotIfMoveLeft(): Figure {
-        val snapshot = duplicate()
-        snapshot.moveLeft()
-        return snapshot
-    }
-
-    fun moveLeft() {
-        blocks.forEach { it.position = Position(it.position.x - 1, it.position.y) }
-    }
-
-    fun snapshotIfMoveDown(): Figure {
-        val snapshot = duplicate()
-        snapshot.moveDown()
-        return snapshot
-    }
-
-    fun moveDown() {
-        blocks.forEach { it.position = Position(it.position.x, it.position.y + 1) }
-    }
-
-    fun snapshotIfRotate(): Figure {
-        val snapshot = duplicate()
-        snapshot.rotate()
-        return snapshot
-    }
-
-    fun rotate() {
-        spinners.next().invoke(this)
+    fun transform(transformer: Transformers) {
+        transformers[transformer]?.next()?.invoke(this)
     }
 
     fun duplicate(): Figure {
