@@ -1,17 +1,18 @@
 package ua.antoniuk.tetris
 
+import ua.antoniuk.tetris.game.GameEngine
 import ua.antoniuk.tetris.glass.Glass
 import ua.antoniuk.tetris.ui.console.ConsoleRender
+import ua.antoniuk.tetris.ui.controller.Joystick
 import java.awt.Window
 import java.lang.Thread.sleep
 import java.util.*
-import javax.swing.SwingUtilities
 
 fun ClosedRange<Int>.random() = Random().nextInt((endInclusive + 1) - start) +  start
 
 fun main(args: Array<String>) {
 
-    val k = Glass()
+    /*val k = Glass()
 
     k.table[0][0] = 1
     k.table[1][0] = 2
@@ -36,5 +37,8 @@ fun main(args: Array<String>) {
     val windows = Window.getWindows()
     for (window in windows)
         println(window.name + ": " + window.javaClass)
-    System.console()
+    System.console()*/
+    val gameEngine = GameEngine(Glass())
+    Joystick(gameEngine)
+    gameEngine.start()
 }

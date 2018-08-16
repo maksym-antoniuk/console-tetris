@@ -1,6 +1,15 @@
 package ua.antoniuk.tetris.glass
 
+import ua.antoniuk.tetris.game.figures.Figure
+import ua.antoniuk.tetris.game.figures.FigureGenerator
+
 class Glass {
 
-    val table = Array(20) {IntArray(10)}
+    var table = MutableList(24) {IntArray(10)}
+    val figures = mutableListOf<Figure>()
+    lateinit var activeFigure: Figure
+    lateinit var nextFigure: Figure
+
+
+
 }

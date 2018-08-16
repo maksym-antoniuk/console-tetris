@@ -32,7 +32,7 @@ class T: Figure() {
                  */
                 { figure ->
                     var block = figure.blocks[0]
-                    block.position = Position(block.position.x + 1, block.position.y - 1)
+                    block.position = Position(block.position.x + 1, block.position.y + 1)
                     block = figure.blocks[2]
                     block.position = Position(block.position.x - 1, block.position.y - 1)
                     block = figure.blocks[3]

@@ -19,18 +19,21 @@ abstract class Figure {
 
     fun snapshotIfTransform(transformer: Transformers): Figure {
         val snapshot = duplicate()
-        transformers[transformer]?.next()?.invoke(snapshot)
+        snapshot.transformers[transformer]?.next()?.invoke(snapshot)
         return snapshot
     }
 
-    fun transform(transformer: Transformers) {
+    @Synchronized fun transform(transformer: Transformers) {
         transformers[transformer]?.next()?.invoke(this)
     }
 
-    fun duplicate(): Figure {
+    @Synchronized fun duplicate(): Figure {
         return object : Figure() {
             init {
                 for (copied in this@Figure.blocks) blocks.add(Block(copied.position.copy(), copied.color))
+                this.transformers[Transformers.ROTATE]?.clear()
+                this.transformers[Transformers.ROTATE]?.addAll(this@Figure.transformers[Transformers.ROTATE]?.asList()!!)
+                this.transformers[Transformers.ROTATE]?.index = this@Figure.transformers[Transformers.ROTATE]?.index!!
             }
         }
     }

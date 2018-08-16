@@ -1,19 +1,21 @@
 package ua.antoniuk.tetris.ui.console
 
 import com.importre.crayon.*
+import ua.antoniuk.tetris.game.Color
 
 class ConsoleDrawer {
 
-    fun draw(cell: Int): String {
-        return when (cell) {
-            1 -> "  ".bgCyan() // I
-            2 -> "  ".bgBrightBlue() // J
-            3 -> "  ".bgYellow() // L
-            4 -> "  ".bgBrightWhite() // O
-            5 -> "  ".bgBrightGreen() // S
-            6 -> "  ".bgMagenta() // T
-            7 -> "  ".bgBrightRed() // Z
-            else -> "  ".bgBlack() // Empty
+    fun draw(color: Color): String {
+        return when (color) {
+            Color.CYAN -> "  ".bgCyan() // I
+            Color.BLUE -> "  ".bgBrightBlue() // J
+            Color.YELLOW -> "  ".bgYellow() // L
+            Color.WHITE -> "  ".bgBrightWhite() // O
+            Color.GREEN -> "  ".bgBrightGreen() // S
+            Color.MAGENTA -> "  ".bgMagenta() // T
+            Color.RED -> "  ".bgBrightRed() // Z
+            Color.BLACK -> "  ".bgBlack() // Background
+            else -> "  " // Empty
         }
     }
 }
